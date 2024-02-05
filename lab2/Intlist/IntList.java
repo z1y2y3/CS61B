@@ -1,3 +1,5 @@
+import com.sun.source.tree.WhileLoopTree;
+
 import java.util.Formatter;
 
 /**
@@ -79,10 +81,14 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
-
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList p = A;
+        while (p.rest != null){
+            p = p.rest;
+        }
+        p.rest = B;
+        return A;
     }
 
     /**
@@ -91,7 +97,22 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList res = new IntList(A.first, A.rest);
+        IntList ptr = res;
+        while (A.rest != null) {
+            A = A.rest;
+            ptr.rest = new IntList(A.first, A.rest);
+            ptr = ptr.rest;
+        }
+        if (B == null) {
+            return res;
+        }
+        while(B.rest != null){
+            ptr.rest = new IntList(B.first, B.rest);
+            B = B.rest;
+            ptr = ptr.rest;
+        }
+        return res;
     }
 
 
