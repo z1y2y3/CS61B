@@ -101,6 +101,9 @@ public class IntList {
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
         if(A == null){
+            if (B == null) {
+                return null;
+            }
             IntList res = new IntList(B.first, B.rest);
             IntList ptr = res;
             while(B.rest != null){
