@@ -1,5 +1,3 @@
-import org.w3c.dom.Node;
-
 public class LinkedListDeque<T> {
     private int size;
     private Node sentinel;
@@ -142,16 +140,17 @@ public class LinkedListDeque<T> {
     /**
      * Same as get, but uses recursion.
      */
-    private  T getHelper(int index,Node ptr){
-        if(index == 0){
+    private T getHelper(int index, Node ptr) {
+        if (index == 0) {
             return ptr.value;
         }
-        return getHelper(index-1,ptr.next);
+        return getHelper(index - 1, ptr.next);
     }
+
     public T getRecursive(int index) {
         if (size() == 0 || index > size() - 1) {
             return null;
         }
-        return getHelper(index,sentinel.next);
+        return getHelper(index, sentinel.next);
     }
 }
