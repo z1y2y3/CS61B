@@ -35,6 +35,8 @@ public class ArrayDeque<T> {
         //two pointers
         int first = nextFirst + 1;
         int last = nextLast - 1;
+        first %= array.length;
+        last %= array.length;
         //copy array value
         if (first < last) {
             int j = newArray.length / 4;
@@ -63,6 +65,8 @@ public class ArrayDeque<T> {
         //two pointers
         int first = nextFirst + 1;
         int last = nextLast - 1;
+        first %= array.length;
+        last %= array.length;
         //copy array value
         if (first < last) {
             int j = newArray.length / 4;
@@ -93,6 +97,8 @@ public class ArrayDeque<T> {
         }
 
         int first = nextFirst + 1;  //before add
+        first %= array.length;
+
         if (first == 0) {
             first = array.length - 1; //afer add
         } else {
@@ -112,7 +118,9 @@ public class ArrayDeque<T> {
             resize(size * 2);
         }
 
-        int last = nextLast - 1; //before add
+        int last = nextLast - 1;
+        last %= array.length;
+
         if (last == array.length - 1) {
             last = 0;   //afer add
         } else {
@@ -144,6 +152,9 @@ public class ArrayDeque<T> {
     public void printDeque() {
         int first = nextFirst + 1;
         int last = nextLast - 1;
+        first %= array.length;
+        last %= array.length;
+
         if (first < last) {
             for (int i = first; i < last + 1; i++) {
                 System.out.print(array[i] + " ");
@@ -169,6 +180,8 @@ public class ArrayDeque<T> {
         }
         int first = nextFirst + 1;
         int last = nextLast - 1;
+        first %= array.length;
+        last %= array.length;
         T item = array[first];
 
         first += 1;
@@ -193,6 +206,7 @@ public class ArrayDeque<T> {
         }
         int first = nextFirst + 1;
         int last = nextLast - 1;
+        first %= array.length;
         last %= array.length;
 
         T item = array[last];
@@ -219,6 +233,8 @@ public class ArrayDeque<T> {
             return null;
         }
         int first = nextFirst + 1;
+        first %= array.length;
+
         int i = (first + index) % array.length;
         return array[i];
     }
