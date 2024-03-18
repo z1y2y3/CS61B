@@ -7,10 +7,6 @@ public class OffByN implements CharacterComparator {
 
     public boolean equalChars(char x, char y) {
         int value = y - x;
-        if (value == this.N || value == this.N) {
-            return true;
-        } else {
-            return false;
-        }
+        return value == this.N || value == -this.N;
     }
 }

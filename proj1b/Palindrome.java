@@ -31,7 +31,7 @@ public class Palindrome {
         for (int i = 0; i < word.length() / 2; i++) {
             char front = deque.removeFirst();
             char back = deque.removeLast();
-            if (!cc.equalChars(front,back)) {
+            if (!cc.equalChars(front, back)) {
                 return false;
             }
         }
