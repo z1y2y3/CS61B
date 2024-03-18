@@ -47,8 +47,8 @@ public class ArrayDeque<T> {
                 newArray[j] = array[i];
             }
         }
-        first = newArray.length / 4 ;
-        last = first + size() -1;
+        first = newArray.length / 4;
+        last = first + size() - 1;
         array = newArray;
     }
 
@@ -73,7 +73,7 @@ public class ArrayDeque<T> {
             }
         }
         first = newArray.length / 4;
-        last = first + array.length-1;
+        last = first + array.length - 1;
         array = newArray;
 
     }
