@@ -54,24 +54,23 @@ public class ArrayDequeTest {
         lld1.addLast("back");
         passed = checkSize(3, lld1.size()) && passed;
 
-        lld1.addLast("front");
-        lld1.addLast("front");
-        lld1.addLast("front");
-        lld1.addLast("front");
-        lld1.addLast("front");
-        lld1.addLast("front");
-
         System.out.println("Printing out deque1: ");
         lld1.printDeque();
 
-        lld1.removeLast();
-        lld1.removeLast();
-        lld1.removeLast();
-        lld1.removeLast();
-        lld1.removeLast();
-        lld1.removeLast();
+        lld1.addLast("front");
+        lld1.addLast("front");
+        lld1.addLast("front");
+        lld1.addLast("front");
+        lld1.addLast("front");
+        lld1.addLast("front");
 
         System.out.println("Printing out deque2: ");
+        lld1.printDeque();
+
+        for (int i = 0; i < 6; i++) {
+            lld1.removeLast();
+        }
+        System.out.println("Printing out deque3: ");
         lld1.printDeque();
 
         printTestStatus(passed);

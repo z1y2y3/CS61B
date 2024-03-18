@@ -1,8 +1,8 @@
 public class ArrayDeque<T> {
     private T[] array;
     private int size;
-    private int nextFirst;  //nextFirst is first-1
-    private int nextLast;   //nextLast is last+1
+    private int first;
+    private int last;
 
     /**
      * list in array
@@ -16,8 +16,8 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         array = (T[]) new Object[8];
         size = 0;
-        nextFirst = 4;
-        nextLast = 5;
+        first = 5;
+        last = 4;
     }
 
     /**
@@ -32,11 +32,6 @@ public class ArrayDeque<T> {
      */
     private void smaller(int capacity) {
         T[] newArray = (T[]) new Object[capacity / 2];
-        //two pointers
-        int first = nextFirst + 1;
-        int last = nextLast - 1;
-        first %= array.length;
-        last %= array.length;
         //copy array value
         if (first < last) {
             int j = newArray.length / 4;
@@ -52,8 +47,8 @@ public class ArrayDeque<T> {
                 newArray[j] = array[i];
             }
         }
-        nextFirst = newArray.length / 4 - 1;
-        nextLast = nextFirst + size() + 1;
+        first = newArray.length / 4 ;
+        last = first + size() -1;
         array = newArray;
     }
 
@@ -62,11 +57,6 @@ public class ArrayDeque<T> {
      */
     private void resize(int capacity) {
         T[] newArray = (T[]) new Object[capacity];
-        //two pointers
-        int first = nextFirst + 1;
-        int last = nextLast - 1;
-        first %= array.length;
-        last %= array.length;
         //copy array value
         if (first < last) {
             int j = newArray.length / 4;
@@ -82,8 +72,8 @@ public class ArrayDeque<T> {
                 newArray[j] = array[i];
             }
         }
-        nextFirst = newArray.length / 4 - 1;
-        nextLast = nextFirst + array.length + 1;
+        first = newArray.length / 4;
+        last = first + array.length-1;
         array = newArray;
 
     }
@@ -96,15 +86,11 @@ public class ArrayDeque<T> {
             resize(size * 2);
         }
 
-        int first = nextFirst + 1;  //before add
-        first %= array.length;
-
         if (first == 0) {
             first = array.length - 1; //afer add
         } else {
             first -= 1;    //afer add
         }
-        nextFirst = first - 1;
 
         size += 1;
         array[first] = item;
@@ -118,15 +104,11 @@ public class ArrayDeque<T> {
             resize(size * 2);
         }
 
-        int last = nextLast - 1;
-        last %= array.length;
-
         if (last == array.length - 1) {
             last = 0;   //afer add
         } else {
             last += 1;  //afer add
         }
-        nextLast = last + 1;
 
         size += 1;
         array[last] = item;
@@ -150,11 +132,9 @@ public class ArrayDeque<T> {
      * Prints the items in the deque from first to last, separated by a space.
      */
     public void printDeque() {
-        int first = nextFirst + 1;
-        int last = nextLast - 1;
-        first %= array.length;
-        last %= array.length;
-
+        if (size() == 0) {
+            return;
+        }
         if (first < last) {
             for (int i = first; i < last + 1; i++) {
                 System.out.print(array[i] + " ");
@@ -178,16 +158,11 @@ public class ArrayDeque<T> {
         if (size() == 0) {
             return null;
         }
-        int first = nextFirst + 1;
-        int last = nextLast - 1;
-        first %= array.length;
-        last %= array.length;
         T item = array[first];
 
         first += 1;
         first %= array.length;
 
-        nextFirst = first - 1;
         size -= 1;
 
         double R = (double) size / (double) array.length;
@@ -204,17 +179,15 @@ public class ArrayDeque<T> {
         if (size() == 0) {
             return null;
         }
-        int first = nextFirst + 1;
-        int last = nextLast - 1;
-        first %= array.length;
-        last %= array.length;
 
         T item = array[last];
 
         last -= 1;
         last %= array.length;
+        if (last < 0) {
+            last += array.length;
+        }
 
-        nextLast = last + 1;
         size -= 1;
 
         double R = (double) size / (double) array.length;
@@ -232,9 +205,6 @@ public class ArrayDeque<T> {
         if (size() == 0 || index > size - 1) {
             return null;
         }
-        int first = nextFirst + 1;
-        first %= array.length;
-
         int i = (first + index) % array.length;
         return array[i];
     }
