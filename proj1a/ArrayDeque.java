@@ -1,8 +1,8 @@
 public class ArrayDeque<T> {
     private T[] array;
-    int size;
-    int nextFirst;  //nextFirst is first-1
-    int nextLast;   //nextLast is last+1
+    private int size;
+    private int nextFirst;  //nextFirst is first-1
+    private int nextLast;   //nextLast is last+1
 
     /**
      * list in array
@@ -193,6 +193,7 @@ public class ArrayDeque<T> {
         }
         int first = nextFirst + 1;
         int last = nextLast - 1;
+        last %= array.length;
 
         T item = array[last];
 
