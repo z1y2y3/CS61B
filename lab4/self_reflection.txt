@@ -3,7 +3,7 @@ All questions are optional, though try to answer at least 4. The main goal of th
 ArrayDeque:
 
 Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
-
+1
 A: 
 
 Q: What's something you felt proud of in your code, if anything?
