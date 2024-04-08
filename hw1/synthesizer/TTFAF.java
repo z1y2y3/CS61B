@@ -17,7 +17,7 @@ public class TTFAF {
         try {
             InputStream source = new ByteArrayInputStream(Base64.getDecoder().decode(TTFAF));
             source = new GZIPInputStream(source);
-            syntheiszer.GuitarPlayer player = new syntheiszer.GuitarPlayer(source);
+            GuitarPlayer player = new GuitarPlayer(source);
             player.play();
         } catch (IOException e) {
             e.printStackTrace();

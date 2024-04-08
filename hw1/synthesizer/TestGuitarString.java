@@ -2,7 +2,7 @@
 /* Don't worry too much about this, we'll get there in due time. */
 package synthesizer;
 
-
+import edu.princeton.cs.algs4.StdAudio;
 
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class TestGuitarString {
     public void testTic() {
         // Create a GuitarString of frequency 11025, which
         // is an ArrayRingBuffer of length 4. 
-        syntheiszer.GuitarString s = new syntheiszer.GuitarString(11025);
+        GuitarString s = new GuitarString(11025);
         s.pluck();
 
         // Record the front four values, ticcing as we go.
