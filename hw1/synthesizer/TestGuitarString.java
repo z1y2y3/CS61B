@@ -1,6 +1,8 @@
-
 /* Since this test is part of a package, we have to import the package version of StdAudio. */
 /* Don't worry too much about this, we'll get there in due time. */
+package synthesizer;
+
+
 
 import org.junit.Test;
 
@@ -16,7 +18,7 @@ public class TestGuitarString {
     @Test
     public void testPluckTheAString() {
         double CONCERT_A = 440.0;
-        syntheiszer.GuitarString aString = new syntheiszer.GuitarString(CONCERT_A);
+        GuitarString aString = new GuitarString(CONCERT_A);
         aString.pluck();
         for (int i = 0; i < 50000; i += 1) {
             StdAudio.play(aString.sample());

@@ -1,9 +1,4 @@
-// TODO: Make sure to make this class a part of the synthesizer package
-//package <package name>;
-package syntheiszer;
-
-import synthesizer.AbstractBoundedQueue;
-import synthesizer.BoundedQueue;
+package synthesizer;
 
 //Make sure this class is public
 public class GuitarString {
@@ -25,7 +20,7 @@ public class GuitarString {
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
         int x = (int) Math.round(SR / frequency);
-        buffer = new syntheiszer.ArrayRingBuffer<Double>(x);
+        buffer = new ArrayRingBuffer<Double>(x);
     }
 
     private double getRandom() {

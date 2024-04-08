@@ -11,7 +11,7 @@ import org.junit.Test;
 public class TestArrayRingBuffer {
     @Test
     public void someTest() {
-        syntheiszer.ArrayRingBuffer<Integer> x = new syntheiszer.ArrayRingBuffer<>(10);
+        ArrayRingBuffer<Integer> x = new ArrayRingBuffer<>(10);
         for (int i = 0; i < 10; i++) {
             x.enqueue(i);
         }
