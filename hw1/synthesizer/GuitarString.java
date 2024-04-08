@@ -76,7 +76,7 @@ public class GuitarString {
         //Return the correct thing.
         try {
             return buffer.peek();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return 0;
         }
     }
