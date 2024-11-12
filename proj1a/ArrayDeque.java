@@ -25,10 +25,11 @@ public class ArrayDeque<T> {
 
         if (lengthFromFirst != size) {
             System.arraycopy(array, 0,
-                    newArray, capacity / 4 + lengthFromFirst, size - lengthFromFirst);
+                    newArray, capacity / 4 + lengthFromFirst, first);
         }
         array = newArray;
-        size = capacity;
+        first = capacity / 4;
+        last = first + size - 1;
     }
 
     /* make index right*/
@@ -76,6 +77,15 @@ public class ArrayDeque<T> {
 
     /* Prints the items in the deque from first to last, separated by a space.*/
     public void printDeque() {
+        for (int i = first; i < array.length; i++) {
+            System.out.println(array[i] + " ");
+        }
+        int lengthFromFirst = size - first;
+        if (lengthFromFirst != size) {
+            for (int i = 0; i < first; i++) {
+                System.out.println(array[i] + " ");
+            }
+        }
 
     }
 
@@ -117,7 +127,9 @@ public class ArrayDeque<T> {
         if (index < 0 || index >= size) {
             return null;
         }
-        return array[index];
+        // first is 0th
+        int realIndex = Math.floorMod(first + index, array.length);
+        return array[realIndex];
     }
 
 }

@@ -90,7 +90,7 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void testAdd() {
+    public void testAddResize() {
         ArrayDeque<Integer> list = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
             list.addFirst(i);
@@ -98,7 +98,7 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void testAddRemove() {
+    public void testAdd() {
         ArrayDeque<Integer> list = new ArrayDeque<>();
         list.addFirst(0);
         list.addFirst(1);
@@ -110,6 +110,8 @@ public class LinkedListDequeTest {
         list.addLast(7);
         list.addLast(8);
         list.addLast(9);
+        list.addFirst(10);
+        System.out.println(list.get(1));
     }
 
 
