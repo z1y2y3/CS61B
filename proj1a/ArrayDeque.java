@@ -35,7 +35,7 @@ public class ArrayDeque<T> {
     private int makeSure(int i) {
         if (i < 0) {
             i = array.length - 1;
-        } else if (i > array.length) {
+        } else if (i == array.length) {
             i = 0;
         }
         return i;
