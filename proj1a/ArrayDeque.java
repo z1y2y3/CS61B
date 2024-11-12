@@ -84,6 +84,9 @@ public class ArrayDeque<T> {
     /* Removes and returns the item at the front of the deque.
     If no such item exists, returns null.*/
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         double usageFactor = (double) size / (double) array.length;
         if (size >= 16 && usageFactor < 0.25f) {
             resize(size / 2);
@@ -99,6 +102,9 @@ public class ArrayDeque<T> {
     /* Removes and returns the item at the back of the deque.
     If no such item exists, returns null.*/
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         double usageFactor = (double) size / (double) array.length;
         if (size >= 16 && usageFactor < 0.25f) {
             resize(size / 2);
