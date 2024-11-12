@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 /**
  * Performs some basic linked list tests.
  */
@@ -85,6 +87,14 @@ public class LinkedListDequeTest {
         passed = checkEmpty(true, lld1.isEmpty()) && passed;
 
         printTestStatus(passed);
+    }
+
+    @Test
+    public void testAddRemove() {
+        ArrayDeque<Integer> list = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            list.addFirst(i);
+        }
     }
 
 

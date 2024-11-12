@@ -27,6 +27,7 @@ public class ArrayDeque<T> {
             System.arraycopy(array, 0,
                     newArray, capacity / 4 + lengthFromFirst, size - lengthFromFirst);
         }
+        array = newArray;
         size = capacity;
     }
 
