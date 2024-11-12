@@ -112,6 +112,8 @@ public class LinkedListDequeTest {
         list.addLast(9);
         list.addFirst(10);
         System.out.println(list.get(1));
+        System.out.println("----------");
+        list.printDeque();
     }
 
 

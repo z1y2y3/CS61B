@@ -77,15 +77,7 @@ public class ArrayDeque<T> {
 
     /* Prints the items in the deque from first to last, separated by a space.*/
     public void printDeque() {
-        for (int i = first; i < array.length; i++) {
-            System.out.println(array[i] + " ");
-        }
-        int lengthFromFirst = size - first;
-        if (lengthFromFirst != size) {
-            for (int i = 0; i < first; i++) {
-                System.out.println(array[i] + " ");
-            }
-        }
+
 
     }
 
@@ -112,8 +104,8 @@ public class ArrayDeque<T> {
             resize(size / 2);
         }
         int nextLast = makeSure(last - 1);
-        T temp = array[nextLast];
-        array[nextLast] = null;
+        T temp = array[last];
+        array[last] = null;
         last = nextLast;
         size -= 1;
         return temp;
