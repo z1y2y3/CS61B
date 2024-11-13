@@ -20,11 +20,17 @@ public class ArrayDeque<T> {
         int oldSize = size;
         if (first < last) {
             System.arraycopy(array, first, newArray, capacity / 4, oldSize);
+            array = newArray;
+            first = capacity / 4;
+            last = first + size - 1;
             return;
         }
         int lengthFromFirst = array.length - first;
         System.arraycopy(array, first, newArray, capacity / 4, lengthFromFirst);
         System.arraycopy(array, 0, newArray, capacity / 4 + lengthFromFirst, last + 1);
+        array = newArray;
+        first = capacity / 4;
+        last = first + size - 1;
     }
 
     private void grow(int capacity) {
@@ -110,7 +116,7 @@ public class ArrayDeque<T> {
             return null;
         }
         double usageFactor = (double) size / (double) array.length;
-        if (size >= 16 && usageFactor < 0.25f) {
+        if (array.length >= 16 && usageFactor < 0.25f) {
             resize(array.length / 2);
         }
         int nextFirst = makeSure(first + 1);

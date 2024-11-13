@@ -130,6 +130,17 @@ public class LinkedListDequeTest {
         }
     }
 
+    @Test
+    public void testResizeMemory() {
+        ArrayDeque<Integer> list = new ArrayDeque<>();
+        for (int i = 0; i < 64; i++) {
+            list.addFirst(i);
+        }
+        for (int i = 0; i < 63; i++) {
+            System.out.println(list.removeFirst());
+        }
+    }
+
 
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
