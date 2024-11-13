@@ -15,22 +15,44 @@ public class ArrayDeque<T> {
         last = 4;
     }
 
+    private void shrink(int capacity) {
+        T[] newArray = (T[]) new Object[capacity];
+        int oldSize = size;
+        if (first < last) {
+            System.arraycopy(array, first, newArray, capacity / 4, oldSize);
+            return;
+        }
+        int lengthFromFirst = array.length - first;
+        System.arraycopy(array, first, newArray, capacity / 4, lengthFromFirst);
+        System.arraycopy(array, 0, newArray, capacity / 4 + lengthFromFirst, last + 1);
+    }
 
-    private void resize(int capacity) {
+    private void grow(int capacity) {
         T[] newArray = (T[]) new Object[capacity];
 
-        int lengthFromFirst = size - first;
+        int oldCapacity = array.length;
+
+        int lengthFromFirst = oldCapacity - first;
 
         System.arraycopy(array, first, newArray, capacity / 4, lengthFromFirst);
 
-        if (lengthFromFirst != size) {
+        if (lengthFromFirst != oldCapacity) {
             System.arraycopy(array, 0,
-                    newArray, capacity / 4 + lengthFromFirst, first);
+                    newArray, capacity / 4 + lengthFromFirst, last + 1);
         }
         array = newArray;
         first = capacity / 4;
         last = first + size - 1;
     }
+
+    private void resize(int capacity) {
+        if (capacity < array.length) {
+            shrink(capacity);
+            return;
+        }
+        grow(capacity);
+    }
+
 
     /* make index right*/
     private int makeSure(int i) {
@@ -89,7 +111,7 @@ public class ArrayDeque<T> {
         }
         double usageFactor = (double) size / (double) array.length;
         if (size >= 16 && usageFactor < 0.25f) {
-            resize(size / 2);
+            resize(array.length / 2);
         }
         int nextFirst = makeSure(first + 1);
         T temp = array[first];
@@ -107,7 +129,7 @@ public class ArrayDeque<T> {
         }
         double usageFactor = (double) size / (double) array.length;
         if (size >= 16 && usageFactor < 0.25f) {
-            resize(size / 2);
+            resize(array.length / 2);
         }
         int nextLast = makeSure(last - 1);
         T temp = array[last];

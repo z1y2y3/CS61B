@@ -116,6 +116,20 @@ public class LinkedListDequeTest {
         list.printDeque();
     }
 
+    @Test
+    public void testRemove() {
+        ArrayDeque<Integer> list = new ArrayDeque<>();
+        for (int i = 0; i < 100; i++) {
+            list.addFirst(i);
+        }
+        for (int i = 0; i < 100; i++) {
+            System.out.println(list.removeFirst());
+        }
+        for (int i = 0; i < 100; i++) {
+            list.addLast(i);
+        }
+    }
+
 
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
