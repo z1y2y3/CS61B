@@ -1,0 +1,7 @@
+Please enter desired length of each string: 5
+
+Please enter a positive integer: 10000000
+--Stack Overflow -- couldn't add 10000000 strings of length 5.
+class bstmap.BSTMap: 26.53 sec
+Java's Built-in TreeMap: 20.16 sec
+Java's Built-in HashMap: 12.21 sec
