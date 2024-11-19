@@ -133,12 +133,19 @@ public class LinkedListDequeTest {
     @Test
     public void testResizeMemory() {
         ArrayDeque<Integer> list = new ArrayDeque<>();
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < 128; i++) {
             list.addFirst(i);
         }
-        for (int i = 0; i < 63; i++) {
+        for (int i = 0; i < 127; i++) {
             System.out.println(list.removeFirst());
         }
+    }
+
+    @Test
+    public void testTArrat() {
+        Object[] arr = new Object[8];   // compile success  runtime error
+        arr[0] = new ArrayDeque<Integer>();
+
     }
 
 
