@@ -1,7 +1,6 @@
 package bstmap;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
@@ -125,12 +124,66 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keySet = new HashSet<>();
+        return keySetHelper(keySet, root);
     }
+
+    private Set<K> keySetHelper(Set<K> keySet, BSTNode rootNode) {
+        if (rootNode == null) {
+            return keySet;
+        }
+        keySet.add(rootNode.key);
+        keySetHelper(keySet, rootNode.left);
+        keySetHelper(keySet, rootNode.right);
+        return keySet;
+    }
+
+    private BSTNode removeHelper(BSTNode rootNode, K key) {
+        if (rootNode == null) {
+            return null;
+        }
+        int cmp = rootNode.key.compareTo(key);
+        if (cmp > 0) {
+            rootNode.left = removeHelper(rootNode.left, key);
+        } else if (cmp < 0) {
+            rootNode.right = removeHelper(rootNode.right, key);
+        } else {
+            if (rootNode.left == null) {
+                return rootNode.right;
+            }
+            if (rootNode.right == null) {
+                return rootNode.left;
+            }
+            BSTNode nextRoot = findMin(root.right);  // 不会循环递归，因为nextRoot.left must be null
+            rootNode = removeHelper(rootNode, nextRoot.key);
+            nextRoot.left = rootNode.left;
+            nextRoot.right = rootNode.right;
+            return nextRoot;
+        }
+        return rootNode;
+    }
+
+    private BSTNode findMin(BSTNode rootNode) {
+        if (rootNode == null) {
+            return null;
+        }
+        BSTNode min = rootNode;
+        while (min.left != null) {
+            min = min.left;
+        }
+        return min;
+    }
+
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        V value = get(key);
+        if (value == null) {
+            return null;
+        }
+        size -= 1;
+        root = removeHelper(root, key);
+        return value;
     }
 
     @Override
@@ -138,8 +191,36 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         throw new UnsupportedOperationException();
     }
 
+    private List<K> findAllK(BSTNode root, List<K> keys) {
+        if (root == null) {
+            return keys;
+        }
+        keys.add(root.key);
+        findAllK(root.left, keys);
+        findAllK(root.right, keys);
+        return keys;
+    }
+
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        List<K> keys = new ArrayList<>();
+        keys = findAllK(root, keys);
+        return keys.iterator();
+    }
+
+    /*
+         prints out your BSTMap in order of increasing Key.我们不会测试这个方法的结果，但是你会发现这对测试你的实现很有帮助！
+    */
+    public void printInOrder() {
+        printInOrderHelper(root);
+    }
+
+    private void printInOrderHelper(BSTNode root) {
+        if (root == null) {
+            return;
+        }
+        printInOrderHelper(root.left);
+        System.out.print(root.value + " ");
+        printInOrderHelper(root.right);
     }
 }
