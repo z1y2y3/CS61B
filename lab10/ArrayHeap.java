@@ -219,9 +219,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (size == 1) {
             if (contents[1].myItem.equals(item)) {
                 contents[1].myPriority = priority;
-            } else {
-                return;
             }
+            return;
         }
         int index = 1;
         boolean exists = false;
@@ -235,8 +234,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (!exists) {
             return;
         }
+
         int parentIndex = parentIndex(index);
         if (min(index, parentIndex) == index) {
+            if (index == 1) {
+                sink(index);
+                return;
+            }
             swim(index);
             return;
         }
@@ -486,6 +490,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         pq.insert("e", 5);
         pq.insert("b", 2);
         pq.changePriority("i", 1);
+        pq.changePriority("i", 10);
     }
 
 }
