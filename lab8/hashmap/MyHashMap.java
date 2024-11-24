@@ -121,7 +121,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         buckets = createTable(16);
     }
 
-    static final int hash(Object key) {
+    private static final int hash(Object key) {
         return (key == null) ? 0 : key.hashCode();
     }
 
