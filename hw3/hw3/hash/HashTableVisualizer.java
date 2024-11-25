@@ -5,6 +5,14 @@ import java.util.List;
 
 public class HashTableVisualizer {
 
+    private static void add5Int(List<Integer> params) {
+        params.add(1);
+        params.add(0);
+        params.add(0);
+        params.add(0);
+        params.add(0);
+    }
+
     public static void main(String[] args) {
         /* scale: StdDraw scale
            N:     number of items
@@ -14,14 +22,19 @@ public class HashTableVisualizer {
            nicely, be sure to try
            scale = 0.5, N = 2000, M = 100. */
 
-        double scale = 1.0;
-        int N = 100;
+        double scale = 0.5;
+        int N = 1000;
         int M = 10;
 
         HashTableDrawingUtility.setScale(scale);
         List<Oomage> oomies = new ArrayList<>();
         for (int i = 0; i < N; i += 1) {
-           oomies.add(SimpleOomage.randomSimpleOomage());
+            ArrayList<Integer> params = new ArrayList<>();
+            for (int j = 0; j < i; j += 1) {
+                add5Int(params);
+            }
+            params.add(123);
+            oomies.add(new ComplexOomage(params));
         }
         visualize(oomies, M, scale);
     }

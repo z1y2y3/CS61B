@@ -1,8 +1,9 @@
 package hw3.hash;
-import java.awt.Color;
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdDraw;
 
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.awt.Color;
 
 public class SimpleOomage implements Oomage {
     protected int red;
@@ -10,26 +11,28 @@ public class SimpleOomage implements Oomage {
     protected int blue;
 
     private static final double WIDTH = 0.01;
-    private static final boolean USE_PERFECT_HASH = false;
+    private static final boolean USE_PERFECT_HASH = true;
 
     @Override
     public boolean equals(Object o) {
-        // TODO: Write this method.
+        if (o instanceof SimpleOomage) {
+            SimpleOomage s = (SimpleOomage) o;
+            return red == s.red && green == s.green && blue == s.blue;
+        }
         return false;
     }
 
-    /* Uncomment this method after you've written
-       equals and failed the testHashCodeAndEqualsConsistency
-       test.
     @Override
     public int hashCode() {
         if (!USE_PERFECT_HASH) {
             return red + green + blue;
         } else {
-            // TODO: Write a perfect hash function for Simple Oomages.
-            return 0;
+         /* Write a perfect hash function for Simple Oomages.
+            By perfect, we mean that two SimpleOomages have the same hashCode
+            only if they have the exact same red, green, and blue values.*/
+            return (red + green * 255 + blue * 255 * 255) / 5;
         }
-    }*/
+    }
 
     public SimpleOomage(int r, int g, int b) {
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
