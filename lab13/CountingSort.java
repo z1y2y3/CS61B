@@ -65,7 +65,7 @@ public class CountingSort {
      * @param arr int array that will be sorted
      */
     public static int[] betterCountingSort(int[] arr) {
-        //  make counting sort work with arrays containing negative numbers.
+/*        //  make counting sort work with arrays containing negative numbers.
         // 1. 找到最小值和最大值
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -108,5 +108,33 @@ public class CountingSort {
         }
 
         return sortedArr;  // 返回排序后的新数组
+    }*/
+        if (arr.length == 0) {
+            return arr;
+        }
+
+        int max = arr[0];
+        int min = arr[0];
+        for (int num : arr) {
+            if (num > max) max = num;
+            if (num < min) min = num;
+        }
+
+        int[] count = new int[max - min + 1];
+
+        for (int num : arr) {
+            count[num - min]++;
+        }
+
+        int[] sorted = new int[arr.length];
+        int index = 0;
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+                sorted[index++] = i + min;
+                count[i]--;
+            }
+        }
+
+        return sorted;
     }
 }
