@@ -2,7 +2,6 @@
  * Class with 2 ways of doing Counting sort, one naive way and one "better" way
  *
  * @author Akhil Batra, Alexander Hwang
- *
  **/
 public class CountingSort {
     /**
@@ -66,7 +65,48 @@ public class CountingSort {
      * @param arr int array that will be sorted
      */
     public static int[] betterCountingSort(int[] arr) {
-        // TODO make counting sort work with arrays containing negative numbers.
-        return null;
+        //  make counting sort work with arrays containing negative numbers.
+        // 1. 找到最小值和最大值
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int num : arr) {
+            max = max > num ? max : num;
+            min = min < num ? min : num;
+        }
+
+        // 2. 创建两个计数数组，一个处理负数，一个处理正数
+        int[] countNegative = new int[Math.abs(min)];  // 处理负数
+        int[] countPositive = new int[max + 1];         // 处理正数
+
+        // 3. 分别计数负数和正数
+        for (int num : arr) {
+            if (num < 0) {
+                countNegative[-num]++;  // 负数使用其绝对值减1作为索引,因为最小负数的绝对值 大于 最大正数
+            } else {
+                countPositive[num]++;       // 正数直接作为索引
+            }
+        }
+
+        // 4. 创建一个新的数组来存储排序后的结果
+        int[] sortedArr = new int[arr.length];
+        int index = 0;
+
+        // 5. 处理负数部分，按照从小到大的顺序输出
+        for (int i = countNegative.length - 1; i >= 0; i--) {
+            while (countNegative[i] > 0) {
+                sortedArr[index++] = -(i + 1); // 恢复原始负数
+                countNegative[i]--;
+            }
+        }
+
+        // 6. 处理正数部分，按照从小到大的顺序输出
+        for (int i = 0; i < countPositive.length; i++) {
+            while (countPositive[i] > 0) {
+                sortedArr[index++] = i; // 恢复原始正数
+                countPositive[i]--;
+            }
+        }
+
+        return sortedArr;  // 返回排序后的新数组
     }
 }
