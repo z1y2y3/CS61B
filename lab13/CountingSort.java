@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Class with 2 ways of doing Counting sort, one naive way and one "better" way
  *
@@ -65,50 +67,6 @@ public class CountingSort {
      * @param arr int array that will be sorted
      */
     public static int[] betterCountingSort(int[] arr) {
-/*        //  make counting sort work with arrays containing negative numbers.
-        // 1. 找到最小值和最大值
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for (int num : arr) {
-            max = max > num ? max : num;
-            min = min < num ? min : num;
-        }
-
-        // 2. 创建两个计数数组，一个处理负数，一个处理正数
-        int[] countNegative = new int[Math.abs(min)];  // 处理负数
-        int[] countPositive = new int[max + 1];         // 处理正数
-
-        // 3. 分别计数负数和正数
-        for (int num : arr) {
-            if (num < 0) {
-                countNegative[-num]++;  // 负数使用其绝对值减1作为索引,因为最小负数的绝对值 大于 最大正数
-            } else {
-                countPositive[num]++;       // 正数直接作为索引
-            }
-        }
-
-        // 4. 创建一个新的数组来存储排序后的结果
-        int[] sortedArr = new int[arr.length];
-        int index = 0;
-
-        // 5. 处理负数部分，按照从小到大的顺序输出
-        for (int i = countNegative.length - 1; i >= 0; i--) {
-            while (countNegative[i] > 0) {
-                sortedArr[index++] = -(i + 1); // 恢复原始负数
-                countNegative[i]--;
-            }
-        }
-
-        // 6. 处理正数部分，按照从小到大的顺序输出
-        for (int i = 0; i < countPositive.length; i++) {
-            while (countPositive[i] > 0) {
-                sortedArr[index++] = i; // 恢复原始正数
-                countPositive[i]--;
-            }
-        }
-
-        return sortedArr;  // 返回排序后的新数组
-    }*/
         if (arr.length == 0) {
             return arr;
         }
@@ -136,5 +94,46 @@ public class CountingSort {
         }
 
         return sorted;
+    }
+
+    public static void main(String[] args) {
+        // 测试用例 1: 包含 Integer.MIN_VALUE 和 Integer.MAX_VALUE
+        int[] arr1 = {Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 1, -1};
+        System.out.println("测试用例 1: 包含 Integer.MIN_VALUE 和 Integer.MAX_VALUE");
+        System.out.println("原始数组: " + Arrays.toString(arr1));
+        int[] sortedArr1 = CountingSort.betterCountingSort(arr1);
+        System.out.println("排序后的数组: " + Arrays.toString(sortedArr1));
+        System.out.println();
+
+        // 测试用例 2: 正常情况，包含负数和正数
+        int[] arr2 = {10, -5, 3, -10, 8, 0, -3, 5};
+        System.out.println("测试用例 2: 正常情况，包含负数和正数");
+        System.out.println("原始数组: " + Arrays.toString(arr2));
+        int[] sortedArr2 = CountingSort.betterCountingSort(arr2);
+        System.out.println("排序后的数组: " + Arrays.toString(sortedArr2));
+        System.out.println();
+
+        // 测试用例 3: 全为相同的元素
+        int[] arr3 = {7, 7, 7, 7, 7, 7};
+        System.out.println("测试用例 3: 全为相同的元素");
+        System.out.println("原始数组: " + Arrays.toString(arr3));
+        int[] sortedArr3 = CountingSort.betterCountingSort(arr3);
+        System.out.println("排序后的数组: " + Arrays.toString(sortedArr3));
+        System.out.println();
+
+        // 测试用例 4: 空数组
+        int[] arr4 = {};
+        System.out.println("测试用例 4: 空数组");
+        System.out.println("原始数组: " + Arrays.toString(arr4));
+        int[] sortedArr4 = CountingSort.betterCountingSort(arr4);
+        System.out.println("排序后的数组: " + Arrays.toString(sortedArr4));
+        System.out.println();
+
+        // 测试用例 5: 单一元素数组
+        int[] arr5 = {3};
+        System.out.println("测试用例 5: 单一元素数组");
+        System.out.println("原始数组: " + Arrays.toString(arr5));
+        int[] sortedArr5 = CountingSort.betterCountingSort(arr5);
+        System.out.println("排序后的数组: " + Arrays.toString(sortedArr5));
     }
 }
