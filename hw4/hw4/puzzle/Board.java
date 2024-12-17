@@ -50,7 +50,6 @@ public class Board implements WorldState {
     @Override
     public Iterable<WorldState> neighbors() {
         Queue<WorldState> neighbors = new Queue<>();
-        int N = size();
         int x = -1;
         int y = -1;
 
@@ -74,7 +73,8 @@ public class Board implements WorldState {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (Math.abs(x - i) == 1 && Math.abs(y - j) == 0 || Math.abs(x - i) == 0 && Math.abs(y - j) == 1) {
+                if (Math.abs(x - i) == 1 && Math.abs(y - j) == 0
+                        || Math.abs(x - i) == 0 && Math.abs(y - j) == 1) {
                     // 交换空白方块和相邻方块
                     newBoard[x][y] = newBoard[i][j];
                     newBoard[i][j] = 0;
@@ -120,9 +120,7 @@ public class Board implements WorldState {
         if (x == 0) {
             return 0;
         }
-        int i_ = (x - 1) / N;
-        int j_ = (x - 1) % N;
-        return Math.abs(i - i_) + Math.abs(j - j_);
+        return Math.abs((x - 1) / N - i) + Math.abs((x - 1) % N - j);
     }
 
     /*
@@ -153,12 +151,21 @@ public class Board implements WorldState {
      * */
     public boolean equals(Object y) {
         // 1. 判断是否为同一个对象
-        if (this == y) return true;
+        if (this == y) {
+            return true;
+        }
 
         // 2. 判断类型是否为 int[][]
-        if (y == null || getClass() != y.getClass()) return false;
+        if (y == null || getClass() != y.getClass()) {
+            return false;
+        }
 
         return Arrays.deepEquals(board, ((Board) y).board);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(board);
     }
 
     /*
@@ -167,7 +174,6 @@ public class Board implements WorldState {
      * */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        int N = size();
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
