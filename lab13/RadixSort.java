@@ -133,8 +133,8 @@ public class RadixSort {
         }
 
         // 创建 128 个桶（对应 ASCII 字符 0 到 127）
-        List<String>[] buckets = new ArrayList[128];
-        for (int i = 0; i < 128; i++) {
+        List<String>[] buckets = new ArrayList[256];
+        for (int i = 0; i < 256; i++) {
             buckets[i] = new ArrayList<>();
         }
 
