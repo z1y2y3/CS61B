@@ -30,6 +30,7 @@ public class HuffmanEncoder {
         ObjectWriter ow = new ObjectWriter(outputFileName);
         ow.writeObject(binaryDecodingTrie);
         // 5: (optional: write the number of symbols to the .huf file)
+        ow.writeObject(frequencyTable.size());
         // 6: Use binary trie to create lookup table for encoding.
         Map<Character, BitSequence> lookupTable = binaryDecodingTrie.buildLookupTable();
         // 7: Create a list of bitsequences.
