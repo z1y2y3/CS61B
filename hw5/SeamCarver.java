@@ -75,52 +75,76 @@ public class SeamCarver {
         return energyOfVertical + energyOfHorizontal;
     }
 
-    /* assum j >= 1 */
-    private double finMin(int i, int j) {
+    /* assume j >= 1 */
+    // M(i,j)=e(i,j)+min(M(i−1,j−1),M(i,j−1),M(i+1,j−1))
+    private double finMin(int i, int j, double[][] M) {
+        if (width == 1) {
+            return M[i][j - 1];
+        }
         if (i == 0) {
-            return Math.min(energy(i, j - 1), energy(i + 1, j - 1));
+            return Math.min(M[i][j - 1], M[i + 1][j - 1]);
         }
         if (i == width - 1) {
-            return Math.min(energy(i - 1, j - 1), energy(i, j - 1));
+            return Math.min(M[i - 1][j - 1], M[i][j - 1]);
         }
-        double e = energy(i, j - 1);
-        return Math.min(Math.min(e, energy(i - 1, j - 1)), energy(i + 1, j - 1));
+        double left = M[i - 1][j - 1];
+        double mid = M[i][j - 1];
+        double right = M[i + 1][j - 1];
+        return Math.min(Math.min(M[i - 1][j - 1], M[i][j - 1]), M[i + 1][j - 1]);
     }
 
-    private void findFirstRow(int[] array) {
-        int x = 0;
-        double e = energy(0, 0);
-        for (int i = 1; i < width; i++) {
-            if (energy(i, 0) < e) {
-                e = energy(i, 0);
-                x = i;
-            }
+    // M(i,j)=e(i,j)+min(M(i−1,j−1),M(i,j−1),M(i+1,j−1))
+    // i --- currentColumn,  j --- currentRow
+    private int getPrevColumn(int i, int j, double[][] M) {
+        if (width == 1) {
+            return i;
         }
-        array[0] = x;
+        double correct = M[i][j] - energy(i, j);
+        if (i == 0) {
+            return M[i][j - 1] == correct ? i : i + 1;
+        }
+        if (i == width - 1) {
+            return M[i - 1][j - 1] == correct ? i - 1 : i;
+        }
+        // below is has three possible column
+        if (M[i - 1][j - 1] == correct) {
+            return i - 1;
+        } else if (M[i][j - 1] == correct) {
+            return i;
+        } else {
+            return i + 1;
+        }
     }
 
     // M(i,j)=e(i,j)+min(M(i−1,j−1),M(i,j−1),M(i+1,j−1))
     // sequence of indices for vertical seam
     public int[] findVerticalSeam() {
-        int[] array = new int[height];
-        if (height == 1) {
-            findFirstRow(array);
-            return array;
+        double[][] M = new double[width][height];
+
+        for (int i = 0; i < width; i++) {
+            M[i][0] = energy(i, 0);
         }
-        int x = 0;
-        findFirstRow(array);
         for (int j = 1; j < height; j++) {
-            double minEnergy = energy(0, j) + finMin(0, j);
-            for (int i = 1; i < width; i++) {
-                double currentEnergy = energy(i, j);
-                if (currentEnergy < minEnergy) {
-                    minEnergy = energy(i, j);
-                    x = i;
-                }
+            for (int i = 0; i < width; i++) {
+                M[i][j] = energy(i, j) + finMin(i, j, M);
             }
-            array[j] = x;
         }
-        return array;
+
+        // find right path
+        double min = M[0][height - 1];
+        int column = 0;
+        for (int i = 1; i < width; i++) {
+            if (M[i][height - 1] < min) {
+                min = M[i][height - 1];
+                column = i;
+            }
+        }
+        int[] path = new int[height];
+        path[height - 1] = column;
+        for (int j = height - 2; j >= 0; j--) {
+            path[j] = getPrevColumn(path[j + 1], j + 1, M);
+        }
+        return path;
     }
 
     // sequence of indices for horizontal seam
@@ -145,6 +169,8 @@ public class SeamCarver {
         int[] array = findVerticalSeam();
 
         picture = original;
+        width = original.width();
+        height = original.height();
         transposed = null;
         return array;
     }
