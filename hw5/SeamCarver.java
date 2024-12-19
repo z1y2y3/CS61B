@@ -1,10 +1,12 @@
 import edu.princeton.cs.algs4.Picture;
 
-import java.awt.*;
+import java.awt.Color;
 
 
 public class SeamCarver {
     private Picture picture;
+
+    private final Picture forGradeScope;
 
     private int width;
 
@@ -12,13 +14,14 @@ public class SeamCarver {
 
     public SeamCarver(Picture picture) {
         this.picture = picture;
+        forGradeScope = picture;
         width = picture.width();
         height = picture.height();
     }
 
     // current picture
     public Picture picture() {
-        return picture;
+        return forGradeScope;
     }
 
     // width of current picture
@@ -163,15 +166,14 @@ public class SeamCarver {
             }
         }
 
-        Picture original = picture;
         picture = transposed;
         height = transposed.height();
         width = transposed.width();
         int[] array = findVerticalSeam();
 
-        picture = original;
-        width = original.width();
-        height = original.height();
+        picture = forGradeScope;
+        width = forGradeScope.width();
+        height = forGradeScope.height();
         transposed = null;
         return array;
     }
