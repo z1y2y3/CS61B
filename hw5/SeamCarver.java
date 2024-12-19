@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.Picture;
 
-import java.awt.*;
+import java.awt.Color;
+
 
 public class SeamCarver {
     private Picture picture;
@@ -50,18 +51,18 @@ public class SeamCarver {
     private double caculateHorizontal(int column, int row) {
         Color x = getCorrectColor(column - 1, row);
         Color y = getCorrectColor(column + 1, row);
-        return Math.pow(x.getRed() - y.getRed(), 2) +
-                Math.pow(x.getGreen() - y.getGreen(), 2) +
-                Math.pow(x.getBlue() - y.getBlue(), 2);
+        return Math.pow(x.getRed() - y.getRed(), 2)
+                + Math.pow(x.getGreen() - y.getGreen(), 2)
+                + Math.pow(x.getBlue() - y.getBlue(), 2);
     }
 
     // 垂直，keep column不变
     private double caculateVertical(int column, int row) {
         Color x = getCorrectColor(column, row - 1);
         Color y = getCorrectColor(column, row + 1);
-        return Math.pow(x.getRed() - y.getRed(), 2) +
-                Math.pow(x.getGreen() - y.getGreen(), 2) +
-                Math.pow(x.getBlue() - y.getBlue(), 2);
+        return Math.pow(x.getRed() - y.getRed(), 2)
+                + Math.pow(x.getGreen() - y.getGreen(), 2)
+                + Math.pow(x.getBlue() - y.getBlue(), 2);
     }
 
     // energy of pixel at column x and row y
