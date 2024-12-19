@@ -169,11 +169,10 @@ public class SeamCarver {
         width = transposed.width();
         int[] array = findVerticalSeam();
 
+        picture = original;
+        width = original.width();
+        height = original.height();
         transposed = null;
-        picture = new Picture(original);
-        width = picture.width();
-        height = picture.height();
-        original = null;
         return array;
     }
 
